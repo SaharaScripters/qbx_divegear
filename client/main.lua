@@ -24,16 +24,23 @@ lib.callback.register('qbx_divegear:client:fillTank', function()
         return false
     end
 
-    if lib.progressBar({
+    if lib.progressCircle({
         duration = config.refillTankTimeMs,
+		position = 'bottom',
         label = locale('info.filling_air'),
         useWhileDead = false,
         canCancel = true,
-        anim = {
-            dict = 'clothingshirt',
-            clip = 'try_shirt_positive_d',
-            blendIn = 8.0
-        }
+		prop = {
+			model = `p_s_scuba_tank_s`,
+			pos = vec3(0.595996, 0.081000, 0.325999),
+			rot = vec3(-70.139969, -90.170303, -5.510001),
+			bone = 14201
+		},
+		anim = {
+			dict = 'mini@repair',
+			clip = 'fixing_a_player',
+			blendIn = 8.0,
+		},
     }) then
         oxygenLevel = config.startingOxygenLevel
         exports.qbx_core:Notify(locale('success.tube_filled'), 'success')
@@ -74,8 +81,9 @@ local function attachGear()
 end
 
 local function takeOffSuit()
-    if lib.progressBar({
+    if lib.progressCircle({
         duration = config.takeOffSuitTimeMs,
+		position = 'bottom',
         label = locale('info.pullout_suit'),
         useWhileDead = false,
         canCancel = true,
@@ -138,8 +146,9 @@ local function putOnSuit()
         return
     end
 
-    if lib.progressBar({
+    if lib.progressCircle({
         duration = config.putOnSuitTimeMs,
+		position = 'bottom',
         label = locale('info.put_suit'),
         useWhileDead = false,
         canCancel = true,
